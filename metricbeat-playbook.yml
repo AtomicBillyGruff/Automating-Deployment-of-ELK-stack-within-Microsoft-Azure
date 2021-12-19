@@ -1,0 +1,27 @@
+---
+- name: Configuration for metricbeat
+  hosts: webservers
+  become: true
+  tasks:
+    - name: download metric beat
+      ansible.builtin.copy:
+        src: /etc/ansible/roles/metricbeat-7.4.0-amd64.deb
+        dest: ~/metricbeat-7.4.0-amd64.deb
+
+    - name: install deb file
+      command: dpkg -i ~/metricbeat-7.4.0-amd64.deb
+
+    - name: move metricbeat config file over
+      copy:
+        src: /etc/ansible/files/metricbeat_config.yml
+        dest: /etc/metricbeat/metricbeat.yml
+
+    - name: run docker setup
+      command: sudo metricbeat modules enable docker
+    - name: metricbeat setup
+      command: sudo metricbeat setup
+
+    - name: on startup
+      systemd:
+        state: started
+        name: metricbeat

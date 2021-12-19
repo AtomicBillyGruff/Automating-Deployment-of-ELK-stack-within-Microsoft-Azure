@@ -115,6 +115,10 @@ These Beats allow us to collect the following information from each machine:
 - Metricbeat is "Docker metrics" and you are able to fetch integral data about our Docker containers. 
 - Filebeat is system data and Metricbeat is to fetch container metrics.
 
+# check to see if elk is recieving beat data
+![Check beat data](images/filebeat-running.png)
+![Check beat data](images/metricbeat-running.png)
+
 # If Windows Machine
 - _`Winlogbeat`_ collects Windows logs, which we use to track user logon events, etc.
 
@@ -134,8 +138,20 @@ SSH into your jump box and attach to the ansible container `docker attach contai
 
 - Run the playbook , and navigate to `http://20.122.x.x:5601/app/kibana#/home` to check that the installation worked as expected. Or you can navigate to your `elk-public-ip:5601` and you will be redirected to kibana. 
 
-_As a **Bonus**, provide the specific commands the user will need to run to download the playbook, update the files, etc._
+# Download the playbook and update the config files  
 
+- download the configuration files in DEB format, or from Kibana home page: `curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-7.6.1-darwin-x86_64.tar.gz`
+- The concept is the same with both filebeat and metricbeat configuration files. Within the configuration files modify it to match the paths of the main.yml file or the _metricbeat-playbook.yml_ and _filebeat-playbook.yml_ files so that the paths match up. 
+- When you install a DEB file or the folder for either, and perform `./filebeat setup` and `./filebeat -e` it reads the configuration file named: `filebeat.yml` or `metricbeat.yml`. 
+- These are the configuration files you must modify to connect to your elk server
+- copy the file locally to _/etc/ansible/files_ and edit: `nano filebeat.yml` perform a search for output.elasticsearch and modify the hosts. 
+
+# kibana documentation
+![kibana docs](images/filebeat-config.png)
+
+- `hosts: ["10.1.0.4:9200"]` 
+
+![kibana docs](images/kibana_config.png)
 
 
 

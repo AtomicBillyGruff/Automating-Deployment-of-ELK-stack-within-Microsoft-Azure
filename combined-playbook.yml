@@ -1,0 +1,96 @@
+---
+- name: Configuration for elk
+  hosts: elk
+  become: true
+  tasks:
+    - ansible.posix.sysctl:
+        name: vm.max_map_count
+        value: 262144
+        state: present
+    - name: docker.io
+      apt:
+        update_cache: yes
+        name: docker.io
+        state: present
+    - name: Install pip3
+      apt:
+        name: python3-pip
+        state: present
+    - name: Install Docker python module
+      pip:
+        name: docker
+        state: present
+    - name: download and launch a docker web container
+      docker_container:
+        name: dvwa
+        image: sebp/elk:761
+        state: started
+        restart_policy: always
+        published_ports:
+          - 5601:5601
+          - 9200:9200
+          - 5044:5044
+    - name: Enable service docker on boot
+      systemd:
+        name: docker
+        enabled: yes
+
+# config for filebeat and metricbeat
+- name: Configuration for filebeat
+  hosts: webservers
+  become: true
+  tasks:
+    - name: download filebeat deb
+      ansible.builtin.copy:
+        src: /etc/ansible/roles/filebeat.deb
+        dest: ~/filebeat.deb
+
+    - name: install filebeat deb
+      command: dpkg -i ~/filebeat.deb
+
+    - name: drop to filebeat.yml
+      copy:
+        src: /etc/ansible/files/filebeat-config.yml
+        dest: /etc/filebeat/filebeat.yml
+
+    - name: enable and configure system module
+      command: filebeat modules enable system
+
+    - name: setup filebeat
+      command: filebeat setup
+
+    - name: start filebeat service
+      command: service filebeat start
+
+    - name: enable service filebeat on boot
+      systemd:
+        name: filebeat
+        enabled: yes
+    - name: make sure service is running
+      ansible.builtin.systemd:
+        state: started
+        name: filebeat
+
+    - name: download metric beat
+      ansible.builtin.copy:
+        src: /etc/ansible/roles/metricbeat-7.4.0-amd64.deb
+        dest: ~/metricbeat-7.4.0-amd64.deb
+
+    - name: install deb file
+      command: dpkg -i ~/metricbeat-7.4.0-amd64.deb
+
+    - name: move metricbeat config file over
+      copy:
+        src: /etc/ansible/files/metricbeat_config.yml
+        dest: /etc/metricbeat/metricbeat.yml
+
+    - name: run docker setup
+      command: sudo metricbeat modules enable docker
+    - name: metricbeat setup
+      command: sudo metricbeat setup
+
+    - name: on startup
+      systemd:
+        state: started
+        name: metricbeat
+
