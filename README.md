@@ -1,3 +1,7 @@
+# elasticsearch, logstash, and kibana. == ELK 
+
+ Elasticsearch, logastahs, and kibanda. == elk elasticsearch and logstash are setup in the confifuration files in both metricbeat and filebaeat, where output.elasticsearch is pecifies and going form the beats to Kbiana.
+
 ## Automating Deployment of ELK stack within Microsoft Azure
 
 The  files in this repository were used to configure the network  depicted below 
@@ -13,6 +17,8 @@ The main file is a composited collection consisting of:
 - _elk-config.yaml_
 - _filebeat.yaml_
 - _metricbeat.yaml_
+
+
 
 ### Topology Description
 
@@ -119,11 +125,11 @@ These Beats allow us to collect the following information from each machine:
 ![Check beat data](images/filebeat-running.png)
 ![Check beat data](images/metricbeat-running.png)
 
-# If Windows Machine
+#### If Windows Machine
 - _`Winlogbeat`_ collects Windows logs, which we use to track user logon events, etc.
 
 
-### Using the Playbook to install ELK server 
+# Using the Playbook to install ELK server 
 In order to use the playbook, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned: 
 
 SSH into your jump box and attach to the ansible container `docker attach container-name`
