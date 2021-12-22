@@ -33,7 +33,7 @@ Load balancing ensures that the applicatoin will be highly available in stressfu
 - _filebeat _file system and data
 
 # project Overview
-Can only have 4 machines. Need another virtual net for the elk server. 
+Can only have 4 machines. Need another virtual net for the elk server.
 
 Great sources to look are creating ticket from azure. 
 
@@ -78,8 +78,6 @@ the elk-vm and web-lb are the only items with public ip addressses, where the el
 	- 5601:5601
 	- 9220:9220
 	- 5440:5440
-
-A summary of the access policies in place can be found in the table below. *** mustdo 
 
 | Name     | Publicly Accessible | Allowed IP Addresses |
 |----------|---------------------|----------------------|
