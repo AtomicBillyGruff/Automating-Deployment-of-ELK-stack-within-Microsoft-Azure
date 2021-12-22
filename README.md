@@ -1,10 +1,10 @@
-# elasticsearch, logstash, and kibana. == ELK 
+# elasticsearch, logstash, and kibana 
 
- Elasticsearch, logastahs, and kibanda. == elk elasticsearch and logstash are setup in the confifuration files in both metricbeat and filebaeat, where output.elasticsearch is pecifies and going form the beats to Kbiana.
+elk elasticsearch and logstash are setup in the confifuration files in both metricbeat and filebaeat, where output.elasticsearch is sending beat data to Kbiana.
 
 ## Automating Deployment of ELK stack within Microsoft Azure
 
-The  files in this repository were used to configure the network  depicted below 
+The  files in this repository were used to configure the network depicted below 
 
 ![Network Diagram Image](images/diagram-network.png)
 
