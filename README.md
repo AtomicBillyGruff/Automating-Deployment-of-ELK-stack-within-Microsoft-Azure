@@ -30,7 +30,7 @@ Load balancing ensures that the applicatoin will be highly available in stressfu
 
 - Integrating an ELK server allows users to easily monitor the vulnerable VMs for changes to the system metrics and file intent. The ELK server serves as an IDS 
 - _metricbeat_ - machine metrics and uptime
-- _filebeat _file system and data
+- _filebeat_ - file system and data
 
 # project Overview
 Can only have 4 machines. Need another virtual net for the elk server.
