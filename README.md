@@ -1,6 +1,6 @@
-# elasticsearch, logstash, and kibana 
+# Elasticsearch, Logstash, and Kibana 
 
-elk elasticsearch and logstash are setup in the confifuration files in both metricbeat and filebaeat, where output.elasticsearch is sending beat data to Kbiana.
+Elk elasticsearch and logstash are setup in the confifuration files in both metricbeat and filebaeat, where output.elasticsearch is sending beat data to Kbiana.
 
 ## Automating Deployment of ELK stack within Microsoft Azure
 
@@ -70,9 +70,9 @@ Great sources to look are creating ticket from azure.
 
 # Access Policies 
 
-The machines on the internal network are not exposed to the public network.
+- The machines on the internal network are not exposed to the public network.
 
-the elk-vm and web-lb are the only items with public ip addressses, where the elk-vm obtains access by an network of security engineers & security architects. 
+- The elk-vm and web-lb are the only items with public ip addressses, where the elk-vm obtains access by an network of security engineers & security architects. 
 
 - elk will have the following port mappings later: 
 	- 5601:5601
