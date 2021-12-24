@@ -8,7 +8,7 @@ The  files in this repository were used to configure the network depicted below
 
 ![Network Diagram Image](images/diagram-network.png)
 
-These files have been tested and used to generatea a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. Alternatively, select portions of the main.yaml file may be used to install only select pieces of it, such as Filebeat.
+These files have been tested and used to generate a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. Alternatively, select portions of the main.yaml file may be used to install only select pieces of it, such as Filebeat.
 
 - _main.yaml_
 
@@ -18,13 +18,11 @@ The main file is a composited collection consisting of:
 - _filebeat.yaml_
 - _metricbeat.yaml_
 
-
-
 ### Topology Description
 
 The main purpose of this network is to expose a load-balanced and HIDS monitored instance of DVWA, the D*mn Vulnerable Web Application
 
-Load balancing ensures that the applicatoin will be highly available in stressful situations, in addition to restricting _ports_ to the network.
+Load balancing ensures that the application will be highly available in stressful situations, in addition to restricting _ports_ to the network.
 
 - Load balancers have a lot to do with the availability of a webserver. If one server is stressed and moving slow, or has been entirely made unaivalible to the public network through Ddos or numerous stress attempts internally, the Load balancer is able to then redirect public traffic to the second machine either in the same region or a different one. One great advantage of a jump box is to have it be the ingres point into the local network of the web servers. 
 
@@ -41,7 +39,7 @@ Great sources to look are creating ticket from azure.
 
 - creating a new network within the same reource group.
 - making a vm with a lot of memory
-- also note that static ip's are important when leaving your nsg's rules in tact. If you are managing your cost by stopping the machines, and if your host machine doesn't have a static public ip address, you may find yourself udating your rules frequently.
+- also note that static ip's are important when leaving your nsg's rules in tact. If you are managing your cost by stopping the machines, and if your host machine doesn't have a static public ip address, you may find yourself updating your rules frequently.
 
 | Name     | Function | IP Address | Operating System |
 |----------|----------|------------|------------------|
