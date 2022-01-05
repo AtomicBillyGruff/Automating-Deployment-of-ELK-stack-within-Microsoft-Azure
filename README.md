@@ -70,7 +70,7 @@ Great sources to look are creating ticket from azure.
 
 - The machines on the internal network are not exposed to the public network.
 
-- The elk-vm and web-lb are the only items with public ip addressses, where the elk-vm obtains access by an network of security engineers & security architects. 
+- The elk-vm and web-lb are the only items with public ip addressses, where the elk-vm obtains access by a network of security engineers & security architects. 
 
 - elk will have the following port mappings later: 
 	- 5601:5601
