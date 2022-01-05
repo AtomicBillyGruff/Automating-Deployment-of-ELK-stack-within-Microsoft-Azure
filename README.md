@@ -90,8 +90,8 @@ Automating machines in this manner reduces error and provides a layer of consist
 
 The playbook implements the following tasks:
 
--    elk playbook, installs docker.io via ansible.builtin.apt 
--    instlaling python3-pip via apt
+-    elk playbook installs docker.io via ansible.builtin.apt 
+-    installing python3-pip via apt
 -    installing docker module using pip 
 -    increate virtual memory using sysctl
 -    start on boot & check status
