@@ -1,7 +1,3 @@
-# Elasticsearch, Logstash, and Kibana 
-
-Elk elasticsearch and logstash are setup in the confifuration files in both metricbeat and filebaeat, where output.elasticsearch is sending beat data to Kbiana.
-
 ## Automating Deployment of ELK stack within Microsoft Azure
 
 The  files in this repository were used to configure the network depicted below 
@@ -20,26 +16,20 @@ The main file is a composited collection consisting of:
 
 ### Topology Description
 
-The main purpose of this network is to expose a load-balanced and HIDS monitored instance of DVWA, the D*mn Vulnerable Web Application
+The main purpose of this network is to expose a load-balanced and HIDS monitored instance of a web server.
 
 Load balancing ensures that the application will be highly available in stressful situations, in addition to restricting _ports_ to the network.
 
-- Load balancers have a lot to do with the availability of a webserver. If one server is stressed and moving slow, or has been entirely made unaivalible to the public network through Ddos or numerous stress attempts internally, the Load balancer is able to then redirect public traffic to the second machine either in the same region or a different one. One great advantage of a jump box is to have it be the ingres point into the local network of the web servers. 
+- Load balancers have a lot to do with the availability of a webserver.
 
 - Integrating an ELK server allows users to easily monitor the vulnerable VMs for changes to the system metrics and file intent. The ELK server serves as an IDS 
 - _metricbeat_ - machine metrics and uptime
 - _filebeat_ - file system and data
 
-# project Overview
-Can only have 4 machines. Need another virtual net for the elk server.
-
-Great sources to look are creating ticket from azure. 
-
 # operations consist of 
 
 - creating a new network within the same reource group.
 - making a vm with a lot of memory
-- also note that static ip's are important when leaving your nsg's rules in tact. If you are managing your cost by stopping the machines, and if your host machine doesn't have a static public ip address, you may find yourself updating your rules frequently.
 
 | Name     | Function | IP Address | Operating System |
 |----------|----------|------------|------------------|
@@ -63,9 +53,6 @@ Great sources to look are creating ticket from azure.
 | elk-vm   | sebp/ELK | 10.1.0.4   | Linux            |
              
 --------------
-
-
-
 # Access Policies 
 
 - The machines on the internal network are not exposed to the public network.
@@ -85,8 +72,6 @@ Great sources to look are creating ticket from azure.
 
 ### Elk Configuration
 No configuration was performed manually and this is advantageous because automating the configuration of the ELK machine doesn't envoke error or any discrepencies between the vm's.
-
-Automating machines in this manner reduces error and provides a layer of consistancy to your security stack similar to why we had a load balancer in front all the web-vm's. 
 
 The playbook implements the following tasks:
 
@@ -124,7 +109,6 @@ These Beats allow us to collect the following information from each machine:
 #### If Windows Machine
 - _`Winlogbeat`_ collects Windows logs, which we use to track user logon events, etc.
 
-
 # Using the Playbook to install ELK server 
 In order to use the playbook, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned: 
 
@@ -136,15 +120,15 @@ SSH into your jump box and attach to the ansible container `docker attach contai
 10.0.0.7 ansible_python_interpreter=/usr/bin/python3
 10.0.0.8 ansible_python_interpreter=/usr/bin/python3
 
-- you can do the same thing for your elk server to tun on that particular machine. 
+- This will be on your proisioner VM.
 
-- Run the playbook , and navigate to `http://20.122.x.x:5601/app/kibana#/home` to check that the installation worked as expected. Or you can navigate to your `elk-public-ip:5601` and you will be redirected to kibana. 
+- Run the playbook , and navigate to `http://20.122.x.x:5601/app/kibana#/home` to check that the installation worked as expected. Or you can navigate to your `elk-public-ip:5601` and you will be redirected to kibana.
 
 # Download the playbook and update the config files  
 
-- download the configuration files in DEB format, or from Kibana home page: `curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-7.6.1-darwin-x86_64.tar.gz`
+- download the configuration files in DEB format, or from Kibana home page: `curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-7.6.1-darwin-x86_64.tar.gz` (make sure version and architecture information is correct and updated)
 - The concept is the same with both filebeat and metricbeat configuration files. Within the configuration files modify it to match the paths of the main.yml file or the _metricbeat-playbook.yml_ and _filebeat-playbook.yml_ files so that the paths match up. 
-- When you install a DEB file or the folder for either, and perform `./filebeat setup` and `./filebeat -e` it reads the configuration file named: `filebeat.yml` or `metricbeat.yml`. 
+- When you install a DEB file or the folder for either, and perform `./filebeat setup` and `./filebeat -e` it reads the configuration file named: `filebeat.yml` or `metricbeat.yml` found in your beat installation e.g., /etc/filebeat/. 
 - These are the configuration files you must modify to connect to your elk server
 - copy the file locally to _/etc/ansible/files_ and edit: `nano filebeat.yml` perform a search for output.elasticsearch and modify the hosts. 
 
@@ -154,6 +138,10 @@ SSH into your jump box and attach to the ansible container `docker attach contai
 - `hosts: ["10.1.0.4:9200"]` 
 
 ![kibana docs](images/kibana_config.png)
+
+Elasticsearch, Logstash, & Kibana. 
+
+
 
 
 
